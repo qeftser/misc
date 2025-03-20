@@ -1,0 +1,9 @@
+
+alias perfc='perf stat -i -e cycles,instructions,cache-references,cache-misses,branches,branch-misses,dummy'
+
+alias cls='clear'
+alias jkjk='echo 'xD''
+
+alias wait_sda1='while ls /dev/sda1 &> /dev/null; do sleep 0.1; done'
+alias wait_sda2='while ls /dev/sda2 &> /dev/null; do sleep 0.1; done'
+alias wait_sda3='while ls /dev/sda3 &> /dev/null; do sleep 0.1; done'
