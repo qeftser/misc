@@ -1,4 +1,6 @@
 
+set mapleader = "\<Space>"
+
 set relativenumber
 hi VertSplit cterm=NONE ctermbg=NONE guibg=NONE
 hi Normal ctermbg=NONE guibg=NONE cterm=NONE
