@@ -1,4 +1,6 @@
 
+# qeftser's aliases
+
 alias perfc='perf stat -i -e cycles,instructions,cache-references,cache-misses,branches,branch-misses,dummy'
 
 alias cls='clear'

@@ -1,5 +1,5 @@
 
-set mapleader = "\<Space>"
+let mapleader = " "
 
 set relativenumber
 hi VertSplit cterm=NONE ctermbg=NONE guibg=NONE
