@@ -27,7 +27,6 @@ require('pckr').add({
 	'nvim-telescope/telescope.nvim';
 	'williamboman/mason.nvim';
 	'williamboman/mason-lspconfig.nvim';
-	{ 'ThePrimeagen/harpoon', branch = 'harpoon2' };
 })
 
 
@@ -41,7 +40,7 @@ require('nvim-treesitter.configs').setup {
 -- Mason setup
 require('mason').setup()
 require('mason-lspconfig').setup({
-	ensure_installed = {'clangd', 'clojure_lsp', 'tailwindcss', },
+	ensure_installed = {'clangd'},
 })
 
 -- coq setup
@@ -98,21 +97,6 @@ local coq = require "coq"
 local builtin = require('telescope.builtin')
 local harpoon = require('harpoon')
 
--- harpoon setup
-harpoon:setup()
-vim.keymap.set("n", "<leader>m", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
-vim.keymap.set("n", "<leader>n", function() harpoon:list():append() end)
-vim.keymap.set("n", "<leader>1", function() harpoon:list():select(1) end)
-vim.keymap.set("n", "<leader>2", function() harpoon:list():select(2) end)
-vim.keymap.set("n", "<leader>3", function() harpoon:list():select(3) end)
-vim.keymap.set("n", "<leader>4", function() harpoon:list():select(4) end)
-vim.keymap.set("n", "<leader>5", function() harpoon:list():select(5) end)
-vim.keymap.set("n", "<leader>6", function() harpoon:list():select(6) end)
-vim.keymap.set("n", "<leader>7", function() harpoon:list():select(7) end)
-vim.keymap.set("n", "<leader>8", function() harpoon:list():select(8) end)
-vim.keymap.set("n", "<leader>9", function() harpoon:list():select(9) end)
-vim.keymap.set("n", "<leader>0", function() harpoon:list():select(10) end)
-
 -- LSP setup
 lsp.clangd.setup(coq.lsp_ensure_capabilities())
 lsp.clojure_lsp.setup(coq.lsp_ensure_capabilities())
@@ -124,6 +108,10 @@ vim.api.nvim_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opt
 vim.api.nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
 vim.api.nvim_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
 vim.api.nvim_set_keymap("n", "gx", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+
+vim.diagnostic.config({
+  virtual_text = true
+})
 
 -- Vim setup
 vim.cmd([[color nvimgelion]])
