@@ -17,7 +17,7 @@ bootstrap_pckr()
 vim.cmd([[let mapleader = "\<SPACE>"]])
 
 -- Packer packages
-require('pckr').add({
+require('pckr').add{
 	'nyngwang/nvimgelion';
 	'nvim-treesitter/nvim-treesitter';
 	'neovim/nvim-lspconfig';
@@ -27,7 +27,7 @@ require('pckr').add({
 	'nvim-telescope/telescope.nvim';
 	'williamboman/mason.nvim';
 	'williamboman/mason-lspconfig.nvim';
-})
+}
 
 
 -- package setup
@@ -40,7 +40,7 @@ require('nvim-treesitter.configs').setup {
 -- Mason setup
 require('mason').setup()
 require('mason-lspconfig').setup({
-	ensure_installed = {'clangd'},
+	ensure_installed = {'clangd', },
 })
 
 -- coq setup
@@ -92,17 +92,15 @@ vim.g.coq_settings = {
 }
 
 -- misc variables
-local lsp = require "lspconfig"
 local coq = require "coq"
 local builtin = require('telescope.builtin')
-local harpoon = require('harpoon')
 
 -- LSP setup
-lsp.clangd.setup(coq.lsp_ensure_capabilities())
-lsp.clojure_lsp.setup(coq.lsp_ensure_capabilities())
-lsp.tailwindcss.setup(coq.lsp_ensure_capabilities())
-lsp.lua_ls.setup(coq.lsp_ensure_capabilities())
-lsp.java_language_server.setup(coq.lsp_ensure_capabilities())
+vim.lsp.config('clangd',coq.lsp_ensure_capabilities())
+vim.lsp.config('clojure_lsp',coq.lsp_ensure_capabilities())
+vim.lsp.config('tailwindcss',coq.lsp_ensure_capabilities())
+vim.lsp.config('lua_ls',coq.lsp_ensure_capabilities())
+vim.lsp.config('java_language_server',coq.lsp_ensure_capabilities())
 local opts = { noremap = true }
 vim.api.nvim_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
 vim.api.nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
@@ -112,6 +110,10 @@ vim.api.nvim_set_keymap("n", "gx", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts
 vim.diagnostic.config({
   virtual_text = true
 })
+
+-- Show line diagnostics automatically in hover window
+vim.o.updatetime = 2500
+vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
 
 -- Vim setup
 vim.cmd([[color nvimgelion]])
@@ -142,6 +144,4 @@ vim.cmd([[nmap <leader>v <C-w>o]])
 vim.cmd([[nmap <C-UP> <cmd>resize +2<CR>]])
 vim.cmd([[nmap <C-DOWN> <cmd>resize -2<CR>]])
 vim.cmd([[nmap <C-LEFT> <cmd>vertical resize +2<CR>]])
-vim.cmd([[nmap <C-RIGHT> <cmd>vertical resize -2<CR>]])
-
-
+vim.cmd([[nmap <C-RIGHT> <cmd>ver
